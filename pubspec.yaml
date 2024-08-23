@@ -1,5 +1,5 @@
 name: mqtt_line_chart
-description: "A new Flutter project."
+description: 'A new Flutter project.'
 publish_to: 'none'
 version: 0.1.0
 
@@ -11,11 +11,27 @@ dependencies:
     sdk: flutter
   mqtt_client: ^9.6.1
   syncfusion_flutter_charts: ^20.2.46 # Añade esta línea para usar los gráficos de Syncfusion
+  lottie: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_gif: ^0.0.4
+  video_player: ^2.5.0
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/animation.json
+    - assets/background.jpg
+    - assets/nube.mp4
+    - assets/pasos.mp4
+    - assets/gato.mp4
+    - assets/musica.mp4
+    - assets/paisaje.jpg
+    - assets/paisajecorrer.jpg
+    - assets/latidos.jpg
+    - assets/correr.jpg
+    - assets/sonido.jpg
+    - assets/azulito.jpg
