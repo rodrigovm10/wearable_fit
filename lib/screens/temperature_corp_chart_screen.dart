@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:mqtt_line_chart/models/data_models.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart'; //Asegúrate de agregar esta importación si aún no lo has hecho
 import '../services/mqtt_service.dart';
-import 'package:intl/intl.dart';
 
-class TemperatureChartScreen extends StatefulWidget {
+class TemperatureCorpChartScreen extends StatefulWidget {
   final List<TemperatureData> data;
 
-  TemperatureChartScreen({required this.data});
+  TemperatureCorpChartScreen({required this.data});
 
   @override
-  _TemperatureChartScreenState createState() => _TemperatureChartScreenState();
+  _TemperatureCorpChartScreenState createState() =>
+      _TemperatureCorpChartScreenState();
 }
 
-class _TemperatureChartScreenState extends State<TemperatureChartScreen> {
+class _TemperatureCorpChartScreenState
+    extends State<TemperatureCorpChartScreen> {
   late MqttService _mqttService;
   late ChartSeriesController _chartSeriesController;
 
   @override
   void initState() {
     super.initState();
-    //Asegúrate de que el servidor MQTT esté correcto y sin prefijo
     _mqttService =
         MqttService('test.mosquitto.org', 'clientId'); //Usa un clientId válido
-    _mqttService
-        .getSensorStream('sensor/dht11/temperatura/out')
-        .listen((temperature) {
-      print('Temperature received: $temperature'); //Línea de depuración
+    _mqttService.getSensorStream('sensor/mlx/value/out').listen((temperature) {
+      print('Temperature received: $temperature');
       setState(() {
         widget.data.add(TemperatureData(DateTime.now(), temperature));
         if (widget.data.length > 20) {
@@ -42,7 +41,7 @@ class _TemperatureChartScreenState extends State<TemperatureChartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gráfica de Temperatura'),
+        title: const Text('Gráfica de Temperatura Corporal'),
         backgroundColor: Colors.blueAccent,
       ),
       body: Container(
@@ -50,7 +49,7 @@ class _TemperatureChartScreenState extends State<TemperatureChartScreen> {
         color: Colors.white,
         child: SfCartesianChart(
           primaryXAxis: DateTimeAxis(
-            dateFormat: DateFormat('HH:mm'),
+            dateFormat: DateFormat('HH:mm:ss'),
             title: AxisTitle(text: 'Hora'),
             majorGridLines: MajorGridLines(width: 0),
             minorGridLines: MinorGridLines(width: 0),
@@ -58,7 +57,7 @@ class _TemperatureChartScreenState extends State<TemperatureChartScreen> {
           ),
           primaryYAxis: NumericAxis(
             title: AxisTitle(text: 'Temperatura (°C)'),
-            labelFormat: '{value}°C',
+            labelFormat: '{value} °C',
             majorGridLines: MajorGridLines(width: 1),
             minorGridLines: MinorGridLines(width: 0),
             axisLine: AxisLine(width: 0),

@@ -10,8 +10,11 @@ dependencies:
   flutter:
     sdk: flutter
   mqtt_client: ^9.6.1
-  syncfusion_flutter_charts: ^20.2.46 # Añade esta línea para usar los gráficos de Syncfusion
+  # Añade esta línea para usar los gráficos de Syncfusion
+  syncfusion_flutter_charts: ^20.2.46
+  syncfusion_flutter_gauges: ^20.4.54
   lottie: ^2.0.0
+  intl: ^0.18.0 # Asegúrate de usar la versión más reciente o compatible
 
 dev_dependencies:
   flutter_test:

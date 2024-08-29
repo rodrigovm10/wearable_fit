@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mqtt_line_chart/screens/humidity_gauge_screen.dart';
+import 'package:mqtt_line_chart/screens/oximetro_gauge_screen.dart';
+import 'package:mqtt_line_chart/screens/potentiometer_gauge_screen.dart';
+import 'package:mqtt_line_chart/screens/pulse_chart_screen.dart';
+import 'package:mqtt_line_chart/screens/sensor_data_screen.dart';
 import 'BuzzerChartScreen.dart';
-import 'VibrationChartScreen.dart';
-import 'package:mqtt_line_chart/screens/heart_rate_chart_screen.dart';
-import 'package:mqtt_line_chart/screens/steps_chart_screen.dart';
+import 'package:mqtt_line_chart/screens/temperature_corp_chart_screen.dart';
 import 'package:mqtt_line_chart/screens/temperature_chart_screen.dart';
+import 'package:mqtt_line_chart/screens/steps_chart_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -52,55 +56,85 @@ class MenuScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TemperatureChartScreen(data: []),
+                  builder: (context) => TemperatureChartScreen(
+                    data: [], // Considera inicializar con datos de ejemplo si es necesario
+                  ),
                 ),
               );
             },
           ),
           ListTile(
-            leading: const Icon(Icons.directions_run),
-            title: const Text('Gráfica de Pasos'),
+            leading: const Icon(Icons.thermostat),
+            title: const Text('Gráfica de Temperatura Corporal'),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => StepsChartScreen(data: []),
+                  builder: (context) => TemperatureCorpChartScreen(
+                    data: [], // Considera inicializar con datos de ejemplo si es necesario
+                  ),
                 ),
               );
             },
           ),
           ListTile(
-            leading: const Icon(Icons.face),
-            title: const Text('Gráfica de Termometro'),
+            leading: const Icon(Icons.favorite),
+            title: const Text('Gráfica de Pulso'),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HeartRateChartScreen(data: []),
+                  builder: (context) => PulseChartScreen(
+                    data: [], // Considera inicializar con datos de ejemplo si es necesario
+                  ),
                 ),
               );
             },
           ),
           ListTile(
-            leading: const Icon(Icons.vibration),
-            title: const Text('Control de Vibrador'),
+            leading: const Icon(Icons.water_drop),
+            title: const Text('Gauge de Humedad'),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => VibrationChartScreen(),
+                  builder: (context) => HumidityGaugeScreen(),
                 ),
               );
             },
           ),
           ListTile(
-            leading: const Icon(Icons.audiotrack),
-            title: const Text('Control de Buzzer'),
+            leading: const Icon(Icons.linear_scale_sharp),
+            title: const Text('Gauge de Potenciometro'),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BuzzerChartScreen(),
+                  builder: (context) => PotentiometerGaugeScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.favorite_border),
+            title: const Text('Gauge de Oximetro'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OximetroGaugeScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.monitor),
+            title: const Text('Visualizar Datos'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SensorDataScreen(),
                 ),
               );
             },

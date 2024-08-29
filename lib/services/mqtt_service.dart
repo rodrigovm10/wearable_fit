@@ -53,28 +53,20 @@ class MqttService {
     }
   }
 
-  // Métodos adicionales
-  Stream<int> getStepsStream() async* {
-    // Similar a getTemperatureStream, ajustado para el tópico de pasos
-    // Agrega implementación aquí
+  bool isConnected() {
+    return client.connectionStatus!.state == MqttConnectionState.connected;
   }
 
-  Stream<int> getHeartRateStream() async* {
-    // Similar a getTemperatureStream, ajustado para el tópico de frecuencia cardíaca
-    // Agrega implementación aquí
-  }
+  void toggleBuzzer(bool isBuzzing) {
+    if (isConnected()) {
+      const topic = 'buzzer/control';
+      final payload = isBuzzing ? 'ON' : 'OFF';
+      final builder = MqttClientPayloadBuilder();
+      builder.addString(payload);
 
-  void toggleVibration(bool status) {
-    final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
-    builder.addByte(status ? 1 : 0);
-    client.publishMessage(
-        "control/vibration", MqttQos.exactlyOnce, builder.payload!);
-  }
-
-  void toggleBuzzer(bool status) {
-    final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
-    builder.addByte(status ? 1 : 0);
-    client.publishMessage(
-        "control/buzzer", MqttQos.exactlyOnce, builder.payload!);
+      client.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!);
+    } else {
+      print('No se puede publicar, MQTT no está conectado.');
+    }
   }
 }
